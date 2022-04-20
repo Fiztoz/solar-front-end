@@ -20,6 +20,10 @@ const ChakraField = chakra(Field, {
 const CommentForm = ({ disabledAll, onFormSubmitted }, ref) => {
   const typeList = [
     {
+      value: "interested",
+      name: "สนใจติดตั้ง",
+    },
+    {
       value: "recommend",
       name: "แนะนำชื่นชม",
     },

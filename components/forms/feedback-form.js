@@ -38,7 +38,7 @@ const FeedbackForm = ({ disabledAll, onFormSubmitted }, ref) => {
     <>
       <Flex direction="column" w="100%">
         <Text fontSize="20px" color="dark" fontWeight="600">
-          เลือกหัวข้อที่คุณอยากให้ PEA Solar Hero ปรับปรุงเกี่ยวกับผลวิเคราะห์
+          สิ่งที่คุณไม่ชอบหรืออยากให้เราปรับปรุง
         </Text>
         <Text fontSize="14px" color="gray.01">
           เลือกได้มากกว่า 1 ข้อ
@@ -181,22 +181,6 @@ const FeedbackForm = ({ disabledAll, onFormSubmitted }, ref) => {
                       </>
                     )}
                   </Field>
-                  <Field name="wantResultsOfEnvironmentalAnalysis">
-                    {({ field, form, meta }) => (
-                      <>
-                        <Checkbox
-                          variant="primary"
-                          size="md"
-                          pt="32px"
-                          isChecked={field.value}
-                          onChange={(e) => form.setFieldValue(field.name, e.target.checked)}
-                          disabled={disabledAll}
-                        >
-                          อยากรู้ผลการวิเคราะห์ด้านสิ่งแวดล้อม เช่น ลดการปล่อย CO2 กิโลกรัม/ปี เป็นต้น
-                        </Checkbox>
-                      </>
-                    )}
-                  </Field>
                   <Field name="notEnoughInformationToMakeDecision">
                     {({ field, form, meta }) => (
                       <>
@@ -280,7 +264,7 @@ const FeedbackForm = ({ disabledAll, onFormSubmitted }, ref) => {
                     variant="primary"
                     w="100%"
                     type="submit"
-                    my="44px"
+                    mt="32px"
                     disabled={!(formik.isValid && formik.dirty) || disabledAll}
                   >
                     ส่งข้อมูล

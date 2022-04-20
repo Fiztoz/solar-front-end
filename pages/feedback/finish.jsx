@@ -30,8 +30,7 @@ const FeedbackFinish = () => {
                 ความคิดเห็นของคุณ
               </Text>
               <Text color="gray.01" fontSize="xl" mt={6}>
-                ทีมงาน PEA Solar Hero <br />
-                จะนำความคิดเห็นนี้ไปพัฒนาระบบของเราให้ดีขึ้น
+                เราจะนำความคิดเห็นนี้ไปพัฒนา PEA Solar Hero ให้ดียิ่งขึ้น
               </Text>
               <Flex mt={12} direction={{ base: "column", md: "row" }} pb={3}>
                 <Link href={routePath.landing} passHref scroll={false}>

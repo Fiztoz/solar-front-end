@@ -27,11 +27,13 @@ export default function Home() {
           <Center h="100%">
             <Flex direction="column">
               <Text textAlign="center" fontSize={{ base: "5xl", md: "7xl" }} fontWeight={600} color="primary.00">
-                บ้านหรืออาคารของคุณเหมาะกับ Solar Rooftop หรือไม่?
+                ลดค่าไฟอย่างยั่งยืน <br />
+                เริ่มได้ง่ายๆ <br />
+                ที่หลังคาบ้านคุณ
               </Text>
               <Text textAlign="center" fontSize="xl" color="dark" mt={{ base: 4, md: 6 }}>
-                เริ่มทำแบบประเมิน หรือระบุตำแหน่ง ที่คุณต้องการติดตั้ง Solar Rooftop PEA Solar Hero จะคำนวณขนาดติดตั้ง
-                ที่เหมาะสมและคุ้มค่ามากที่สุด
+                อยากติดตั้งโซลาร์รูฟ แต่ไม่แน่ใจว่าควรติดตั้งขนาดเท่าใด <br />
+                ลองใส่ข้อมูลของคุณเพื่อให้เราช่วยคำนวณขนาดติดตั้งที่เหมาะสมและคุ้มค่าที่สุดให้สิ
               </Text>
               <Flex justify="center" mt={{ base: 8, md: 12 }} px={{ base: 0, md: 8 }}>
                 <Link href={routePath.calculation} passHref scroll={false}>
@@ -257,15 +259,16 @@ export default function Home() {
                     </Square>
                     <Flex direction="column" align="start" ml={4} pt={2}>
                       <Text fontSize="xl" color="dark">
-                        Solar Rooftop ประกอบไปด้วยอะไรบ้าง ?
+                        สิ่งที่มือใหม่ควรรู้เกี่ยวกับการติดตั้งโซลาร์รูฟ (Solar Rooftop)
                       </Text>
                       <Text fontSize="md" color="dark" mt={2}>
-                        นอกจากหลังคาของคุณแลัว ในการติดตั้ง Solar Rooftop ยังต้องอาศัยอุปกรณ์หลักอีก 2 อย่างได้แก่
-                        แผงโซลาร์เซลล์ และอินเวอร์เตอร์
+                        รวมข้อมูลที่เกี่ยวข้องกับการติดตั้งโซลาร์รูฟ (Solar Rooftop)
+                        ไม่ว่าจะเป็นหลักการทำงานของโซลาร์รูฟ อุปกรณ์ที่ต้องใช้ในการติดตั้ง
+                        รวมถึงประโยชน์ของการติดตั้งโซลาร์รูฟ (Solar Rooftop)
                       </Text>
                       <Link href={routePath.knowledge.deviceSelection} passHref scroll={false}>
                         <Button variant="link-primary" pl={0} mt={5} rightIcon={<Icon as={MdArrowForward} />}>
-                          วิธีการเลือกอุปกรณ์
+                          อ่านต่อ
                         </Button>
                       </Link>
                     </Flex>
@@ -284,7 +287,7 @@ export default function Home() {
                       </Text>
                       <Link href={routePath.knowledge.permissionProcess} passHref scroll={false}>
                         <Button variant="link-primary" pl={0} mt={5} rightIcon={<Icon as={MdArrowForward} />}>
-                          ขั้นตอนการขออนุญาตติดตั้ง
+                          อ่านต่อ
                         </Button>
                       </Link>
                     </Flex>

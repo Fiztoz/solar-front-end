@@ -44,9 +44,11 @@ const UnderConstructionContent = () => {
                 อยู่ระหว่างพัฒนา
               </Text>
               <Text color="gray.01" fontSize="xl" mt={6}>
-                หากคุณอยากเห็นอะไรในเว็บไซต์นี้ หรือต้องการติชม <br />
-                ให้กำลังใจทีมงาน PEA Solar Hero ทำได้ง่าย ๆ เพียงคลิก <br />
-                ‘ติดต่อเรา’ หรือส่งข้อความผ่านแบบฟอร์มด้านล่างนี้
+                พวกเรากำลังเร่งสร้างสรรค์สิ่งดีดีมาให้คุณอยู่ <br />
+                และคุณมีส่วนร่วมในการพัฒนาไปกับเราได้ <br />
+                เพียงแสดงความคิดเห็นของคุณ <br />
+                ความคิดเห็นของทุกคนมีค่าในการพัฒนา <br />
+                PEA Solar Hero ให้ดียิ่งขึ้น
               </Text>
               <Flex mt={12} direction={{ base: "column", md: "row" }} pb={3}>
                 <Button
@@ -55,7 +57,7 @@ const UnderConstructionContent = () => {
                   display={{ base: "block", md: "none" }}
                   onClick={() => feedbackRef.current.scrollIntoView({ behavior: "smooth" })}
                 >
-                  แนะนำและติชม
+                  แสดงความคิดเห็น
                 </Button>
                 <Button
                   variant="light-on-light"
@@ -72,7 +74,7 @@ const UnderConstructionContent = () => {
                   display={{ base: "none", md: "block" }}
                   onClick={() => feedbackRef.current.scrollIntoView({ behavior: "smooth" })}
                 >
-                  แนะนำและติชม
+                  แสดงความคิดเห็น
                 </Button>
               </Flex>
             </Flex>
@@ -97,8 +99,9 @@ const UnderConstructionContent = () => {
               Comment and Feedback
             </Text>
             <Text color="gray.01" mt={4} textAlign="center" fontSize="xl">
-              หากมีคำแนะนำ คำติชม หรืออยากให้เว็บไซต์ของเราเพิ่มเติมเนื้อหาในส่วนใด คุณสามารถบอกเราได้เลย
-              ทุกข้อเสนอแนะและคำติชมคือของขวัญของพวกเรา
+              เรายินดีรับฟังทุกความคิดเห็นของคุณ ไม่ว่าจะเป็นติชมหรือเสนอแนะ <br />
+              ทุกความคิดเห็นของคุณมีค่า และเราจะนำมาใช้พัฒนา PEA Solar Hero <br />
+              ให้ดียิ่งขึ้นต่อไป
             </Text>
             <Box w="100%" pt={12}>
               <CommentForm

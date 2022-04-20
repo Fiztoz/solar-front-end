@@ -9,6 +9,7 @@ import {
   IconButton,
   ButtonGroup,
   Button,
+  Spinner,
 } from "@chakra-ui/react";
 import GoogleMapReact from "google-map-react";
 import { MdSearch, MdOutlineGpsFixed, MdOutlineBackHand, MdModeEditOutline } from "react-icons/md";
@@ -32,6 +33,7 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
   const autocompleteListener = null;
 
   const [userLocation, setUserLocation] = useState({ lat: null, lng: null });
+  const [userLocarionIsReady, setUserLocationIsReady] = useState(false);
   const [map, setMap] = useState(null);
   const [drawingManager, setDrawingManager] = useState(null);
   const [autocomplete, setAutocomplete] = useState(null);
@@ -41,20 +43,32 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
   const inputRef = useRef(null);
 
   useEffect(() => {
-    const getLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
-        });
-      }
-    };
-    const getLocationInterval = setInterval(() => {
-      getLocation();
-    }, 10000);
-    return () => {
-      clearInterval(getLocationInterval);
-    };
+    //     navigator.geolocation.getCurrentPosition((position) => {
+    //       setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+    //     });
+    //   }
+    // const getLocation = () => {
+    //   if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition((position) => {
+    //       setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+    //     });
+    //   }
+    // };
+    // const getLocationInterval = setInterval(() => {
+    //   getLocation();
+    // }, 10000);
+    // return () => {
+    //   clearInterval(getLocationInterval);
+    // };
   }, []);
+
+  useEffect(() => {
+    if (map) {
+      map.setCenter(userLocation);
+      map.setZoom(17);
+      onCenterChange(map.getCenter());
+    }
+  }, [userLocation]);
 
   const onGoogleApiLoaded = (e) => {
     setMap(e.map);
@@ -67,9 +81,6 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
       if (initPolygon) {
         setPolygon(initPolygon);
         initPolygon.setMap(map);
-      }
-      if (initCenter) {
-        map.setCenter({ lat: initCenter.lat(), lng: initCenter.lng() });
       }
       mapCenterListener = google.maps.event.addListener(map, "dragend", () => onDragEndHandler());
       setDrawingManager(
@@ -92,6 +103,11 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
         })
       );
       setAutocomplete(new google.maps.places.Autocomplete(inputRef.current));
+      if (initCenter) {
+        map.setCenter({ lat: initCenter.lat(), lng: initCenter.lng() });
+      } else {
+        getUserLocation(navigator);
+      }
     }
     return () => google.maps.event.removeListener(mapCenterListener);
   }, [map]);
@@ -133,10 +149,11 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
     onCenterChange(map.getCenter());
   };
 
-  const onCurrentLocation = () => {
-    map.setCenter(userLocation);
-    map.setZoom(17);
-    onCenterChange(map.getCenter());
+  const onCurrentLocation = (navigator) => {
+    getUserLocation(navigator);
+    // map.setCenter(userLocation);
+    // map.setZoom(17);
+    // onCenterChange(map.getCenter());
   };
 
   const onChangeMode = (mode) => {
@@ -169,6 +186,16 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
     return Math.round(google.maps.geometry.spherical.computeArea(polygon.getPath()) * 100) / 100;
   };
 
+  const getUserLocation = (navigator) => {
+    setUserLocationIsReady(false);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setUserLocationIsReady(true);
+        setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+      });
+    }
+  };
+
   return (
     <Box ref={mapRef} position="relative" w="100%" h="450px" minH={minH}>
       <GoogleMapReact
@@ -181,6 +208,22 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
         defaultCenter={options.center}
         defaultZoom={options.zoom}
       ></GoogleMapReact>
+      {!userLocarionIsReady && (
+        <Flex
+          justify="center"
+          align="center"
+          position="absolute"
+          top={0}
+          right={0}
+          bottom={0}
+          left={0}
+          zIndex="1000"
+          bgColor="dark"
+          opacity={0.5}
+        >
+          <Spinner size="lg" color="light" />
+        </Flex>
+      )}
       <Flex position="absolute" top="0" mt={3} w="100%" justifyContent="center">
         <InputGroup position="absolute" w={{ base: "260px", lg: "360px" }}>
           <InputLeftElement pointerEvents="none">
@@ -190,7 +233,6 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
         </InputGroup>
       </Flex>
       <IconButton
-        disabled={!userLocation.lat || !userLocation.lng}
         position="absolute"
         top={0}
         mt={3}
@@ -198,8 +240,9 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
         mr={3}
         display={{ base: "block", sm: "block" }}
         variant="light"
+        color="gray.00"
         icon={<Icon as={MdOutlineGpsFixed} w={6} h={6} mt={1} />}
-        onClick={() => onCurrentLocation()}
+        onClick={() => onCurrentLocation(navigator)}
       />
       <Flex position="absolute" bottom="0" mb={3} w="100%" justifyContent="center">
         <ButtonGroup isAttached>

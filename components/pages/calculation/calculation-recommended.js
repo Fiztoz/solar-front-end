@@ -1,5 +1,16 @@
 import { useEffect } from "react";
-import { Box, Container, Flex, Text, Center, Divider, Spacer, Button, Icon } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Text,
+  Center,
+  Divider,
+  Spacer,
+  Button,
+  Icon,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import NumberFormat from "react-number-format";
@@ -9,6 +20,7 @@ import HelpfulnessQuestion from "../../contents/helpfulness-question";
 
 const CalculationRecommended = ({ result, onRecalculation }) => {
   const routePath = route();
+  const bp = useBreakpointValue({ base: "base", md: "md" });
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -86,15 +98,80 @@ const CalculationRecommended = ({ result, onRecalculation }) => {
                 </Flex>
               </Center>
             </Flex>
-            <Box w="100%" mb={{ base: 24, md: 40 }}>
-              <Text fontSize="lg" color="gray.01" fontWeight={600}>
-                หมายเหตุ:
-              </Text>
-              <Text fontSize="lg" color="gray.01">
-                ขนาดติดตั้งที่แนะนำอาจมีการเปลี่ยนแปลงได้ ขึ้นอยู่กับการประเมินจากสภาพพื้นที่ติดตั้งจริง
-              </Text>
-            </Box>
-            <Text color="dark" fontSize={{ base: "3xl", md: "5xl" }} fontWeight={600} mb={4} textAlign="center">
+
+            <Text color="dark" fontSize={{ base: "3xl", md: "5xl" }} fontWeight={600} mt={8} mb={4} textAlign="center">
+              ผลการวิเคราะห์ด้านสิ่งแวดล้อม
+            </Text>
+            <Text color="gray.01" fontSize="xl" fontWeight={400} mb={{ base: 8, md: 16 }} textAlign="center">
+              ประโยชน์ต่อสิ่งแวดล้อมเมื่อคุณติดตั้ง Solar Rooftop ตามขนาดที่เราแนะนำ
+            </Text>
+            <Flex
+              boxShadow="md"
+              rounded="md"
+              borderColor="gray.07"
+              borderWidth="1px"
+              w="100%"
+              direction={{ base: "column", md: "row" }}
+              mb={8}
+              justify="center"
+              align="center"
+            >
+              <Flex pt="32px" pb="24px" px="16px">
+                <Image src="/images/co2.png" layout="fixed" width="56px" height="56px" />
+                <Flex ml="16px" direction="column" width="130px" overflow="hidden">
+                  <Text color="dark" fontWeight={600}>
+                    ลดการปล่อย <br />
+                    ก๊าซ CO2
+                  </Text>
+                  <Text color="primary.01" fontWeight={600} fontSize="32px" mt="8px">
+                    <NumberFormat value={result.co2ReducedPerYear} displayType={"text"} thousandSeparator={true} />{" "}
+                  </Text>
+                  <Text color="gray.00" fontSize="14px">
+                    กิโลกรัมต่อปี
+                  </Text>
+                </Flex>
+              </Flex>
+              <Box height={{ base: "1px", md: "90px" }} width={{ base: "240px", md: "1px" }}>
+                {bp == "base" && <Divider orientation="horizontal" borderColor="gray.07"></Divider>}
+                {bp == "md" && <Divider orientation="vertical" borderColor="gray.07"></Divider>}
+              </Box>
+              <Flex pt="32px" pb="24px" px="16px">
+                <Image src="/images/fuel.png" layout="fixed" width="56px" height="56px" />
+                <Flex ml="16px" direction="column" width="130px" overflow="hidden">
+                  <Text color="dark" fontWeight={600}>
+                    ลดการใช้ <br />
+                    น้ำมันเชื้อเพลิง
+                  </Text>
+                  <Text color="primary.01" fontWeight={600} fontSize="32px" mt="8px">
+                    <NumberFormat value={result.co2ReducedAsTree} displayType={"text"} thousandSeparator={true} />{" "}
+                  </Text>
+                  <Text color="gray.00" fontSize="14px">
+                    ลิตรต่อปี
+                  </Text>
+                </Flex>
+              </Flex>
+              <Box height={{ base: "1px", md: "90px" }} width={{ base: "240px", md: "1px" }}>
+                {bp == "base" && <Divider orientation="horizontal" borderColor="gray.07"></Divider>}
+                {bp == "md" && <Divider orientation="vertical" borderColor="gray.07"></Divider>}
+              </Box>
+              <Flex pt="32px" pb="24px" px="16px">
+                <Image src="/images/forest.png" layout="fixed" width="56px" height="56px" />
+                <Flex ml="16px" direction="column" width="130px" overflow="hidden">
+                  <Text color="dark" fontWeight={600}>
+                    เทียบเท่ากับ <br />
+                    การได้ปลูกต้นไม้
+                  </Text>
+                  <Text color="primary.01" fontWeight={600} fontSize="32px" mt="8px">
+                    <NumberFormat value={result.co2ReducedAsDiesel} displayType={"text"} thousandSeparator={true} />{" "}
+                  </Text>
+                  <Text color="gray.00" fontSize="14px">
+                    ต้นต่อปี
+                  </Text>
+                </Flex>
+              </Flex>
+            </Flex>
+
+            <Text color="dark" fontSize={{ base: "3xl", md: "5xl" }} fontWeight={600} mt={8} mb={4} textAlign="center">
               ผลการวิเคราะห์ความคุ้มค่าเบื้องต้น
             </Text>
             <Text color="gray.01" fontSize="xl" fontWeight={400} mb={8} textAlign="center">
@@ -180,7 +257,7 @@ const CalculationRecommended = ({ result, onRecalculation }) => {
                 <Flex align="center">
                   <Image src="/images/check-icon.png" width="24px" height="24px" />
                   <Text color="gray.00" fontSize="xl" ml={3}>
-                    ค่าไฟฟ้าต่อหน่วยโดยเฉลี่ยที่ผลิตได้
+                    ค่าไฟต่อหน่วยหลังติดตั้งโซลาร์รูฟ (ในระยะเวลา 20 ปี)
                   </Text>
                 </Flex>
                 <Spacer />
@@ -263,14 +340,23 @@ const CalculationRecommended = ({ result, onRecalculation }) => {
                   1.
                 </Text>
                 <Text fontSize="lg" color="gray.01">
-                  ค่าใช้จ่ายในการติดตั้งโดยประมาณในที่นี้ ประกอบด้วยค่าสำรวจ ค่าอุปกรณ์ และค่าติดตั้ง
-                  อาจมีการเปลี่ยนแปลงได้ตามสภาพหน้างานและพื้นที่ติดตั้ง เช่น มีการปรับปรุงหลังคาการทำระบบกราวด์
-                  หรือการขออนุญาตเชื่อมต่อเข้ากับระบบไฟฟ้าของการไฟฟ้า เป็นต้น
+                  ขนาดติดตั้งที่แนะนำและผลการวิเคราะห์ด้านสิ่งแวดล้อมอาจมีการเปลี่ยนแปลงได้
+                  ขึ้นอยู่กับการประเมินจากสภาพพื้นที่ติดตั้งจริง
                 </Text>
               </Flex>
               <Flex>
                 <Text fontSize="lg" color="gray.01" mr={1}>
                   2.
+                </Text>
+                <Text fontSize="lg" color="gray.01">
+                  ค่าใช้จ่ายในการติดตั้งโดยประมาณในที่นี้ ประกอบด้วยค่าสำรวจ ค่าอุปกรณ์ และค่าติดตั้ง
+                  อาจมีการเปลี่ยนแปลงได้ตามสภาพหน้างานและพื้นที่ติดตั้ง เช่น มีการปรับปรุงหลังคาหรือการขออนุญาตต่าง ๆ
+                  เป็นต้น
+                </Text>
+              </Flex>
+              <Flex>
+                <Text fontSize="lg" color="gray.01" mr={1}>
+                  3.
                 </Text>
                 <Text fontSize="lg" color="gray.01">
                   ผลการวิเคราะห์ความคุ้มค่าในที่นี้ เป็นการคำนวณเบื้องต้นเท่านั้น อาจมีการเปลี่ยนแปลงได้

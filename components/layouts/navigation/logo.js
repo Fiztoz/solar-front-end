@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Text, Flex, Square } from "@chakra-ui/react";
+import { Text, Flex, Square, Box } from "@chakra-ui/react";
 import usePageOffset from "../../../library/page-offset";
 import route from "../../route";
 
@@ -19,13 +19,16 @@ const Logo = ({ color }) => {
     <Link href={routePath.landing} scroll={false}>
       <a>
         <Flex align="center">
-          <motion.div
+          {/* <motion.div
             animate={y > 20 ? "small" : "large"}
             variants={variants}
             style={{ position: "relative", marginRight: "4px" }}
           >
             <Image src={img} layout="fill" />
-          </motion.div>
+          </motion.div> */}
+          <Box width="40px" height="50px" style={{ position: "relative", marginRight: "4px" }}>
+            <Image src={img} layout="fill" />
+          </Box>
           <Text
             fontWeight={600}
             color={{

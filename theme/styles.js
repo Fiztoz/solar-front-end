@@ -1,7 +1,7 @@
 const styles = {
   global: {
     body: {
-      fontFamily: "'Noto Sans Thai', sans-serif",
+      fontFamily: "'Noto Sans Thai','Noto Sans', sans-serif",
     },
   },
 };

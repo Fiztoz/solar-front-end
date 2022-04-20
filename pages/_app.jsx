@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import MainLayout from "../components/layouts/main";
+import Calculation from "../library/calculation";
 import Fonts from "../components/fonts";
 import theme from "../theme";
 import * as ga from "../library/google-analytics";
@@ -23,17 +24,19 @@ function MyApp({ Component, pageProps, router }) {
     <ChakraProvider theme={theme}>
       <Fonts />
       <MainLayout router={router}>
-        <AnimatePresence
-          exitBeforeEnter
-          initial={true}
-          onExitComplete={() => {
-            if (typeof window !== "undefined") {
-              window.scrollTo({ top: 0 });
-            }
-          }}
-        >
-          {getLayout(<Component {...pageProps} key={router.route} />)}
-        </AnimatePresence>
+        <Calculation>
+          <AnimatePresence
+            exitBeforeEnter
+            initial={true}
+            onExitComplete={() => {
+              if (typeof window !== "undefined") {
+                window.scrollTo({ top: 0 });
+              }
+            }}
+          >
+            {getLayout(<Component {...pageProps} key={router.route} />)}
+          </AnimatePresence>
+        </Calculation>
       </MainLayout>
     </ChakraProvider>
   );
