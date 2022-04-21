@@ -13,8 +13,10 @@ import {
 } from "@chakra-ui/react";
 import GoogleMapReact from "google-map-react";
 import { MdSearch, MdOutlineGpsFixed, MdOutlineBackHand, MdModeEditOutline } from "react-icons/md";
+import { useDialognContext } from "../../../library/dialog.context";
 
 const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, onCenterChange }) => {
+  const dialognContext = useDialognContext();
   const options = {
     center: {
       lat: 13.8518255,
@@ -189,10 +191,18 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
   const getUserLocation = (navigator) => {
     setUserLocationIsReady(false);
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setUserLocationIsReady(true);
-        setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserLocationIsReady(true);
+          setUserLocation({ lat: position.coords.latitude, lng: position.coords.longitude });
+        },
+        (errors) => {
+          console.log(errors);
+          dialognContext.actions.openAlert("ไม่สามารถเข้าถึงตำแหน่งของคุณได้");
+          setUserLocationIsReady(true);
+        },
+        { timeout: 10000 }
+      );
     }
   };
 

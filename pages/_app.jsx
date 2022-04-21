@@ -6,6 +6,7 @@ import Calculation from "../library/calculation";
 import Fonts from "../components/fonts";
 import theme from "../theme";
 import * as ga from "../library/google-analytics";
+import Dialog from "../library/dialog.context";
 
 function MyApp({ Component, pageProps, router }) {
   const getLayout = Component.getLayout || ((page) => page);
@@ -23,21 +24,23 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <ChakraProvider theme={theme}>
       <Fonts />
-      <MainLayout router={router}>
-        <Calculation>
-          <AnimatePresence
-            exitBeforeEnter
-            initial={true}
-            onExitComplete={() => {
-              if (typeof window !== "undefined") {
-                window.scrollTo({ top: 0 });
-              }
-            }}
-          >
-            {getLayout(<Component {...pageProps} key={router.route} />)}
-          </AnimatePresence>
-        </Calculation>
-      </MainLayout>
+      <Dialog>
+        <MainLayout router={router}>
+          <Calculation>
+            <AnimatePresence
+              exitBeforeEnter
+              initial={true}
+              onExitComplete={() => {
+                if (typeof window !== "undefined") {
+                  window.scrollTo({ top: 0 });
+                }
+              }}
+            >
+              {getLayout(<Component {...pageProps} key={router.route} />)}
+            </AnimatePresence>
+          </Calculation>
+        </MainLayout>
+      </Dialog>
     </ChakraProvider>
   );
 }
