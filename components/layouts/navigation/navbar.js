@@ -84,7 +84,7 @@ const Navbar = (props, ref) => {
       w="100%"
       bg={y > 0 ? "lightTransparent" : "transparent"}
       backdropFilter={y > 0 ? "blur(10px)" : "blur(0px)"}
-      zIndex={2000}
+      zIndex={1399}
       {...props}
     >
       <Container maxW={navSize[path] ? navSize[path] : "container.lg"}>

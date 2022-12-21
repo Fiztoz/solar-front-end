@@ -107,6 +107,7 @@ const Map = ({ initCenter, initPolygon, minH, mapRef, onDrawEnd, onDrawReset, on
       setAutocomplete(new google.maps.places.Autocomplete(inputRef.current));
       if (initCenter) {
         map.setCenter({ lat: initCenter.lat(), lng: initCenter.lng() });
+        setUserLocationIsReady(true);
       } else {
         getUserLocation(navigator);
       }
