@@ -7,6 +7,7 @@ import Fonts from "../components/fonts";
 import theme from "../theme";
 import * as ga from "../library/google-analytics";
 import Dialog from "../library/dialog.context";
+import CookiesConsent from "../components/cookies-consent";
 
 function MyApp({ Component, pageProps, router }) {
   const getLayout = Component.getLayout || ((page) => page);
@@ -22,6 +23,8 @@ function MyApp({ Component, pageProps, router }) {
   }, [router.events]);
 
   return (
+    <>
+    <CookiesConsent/>
     <ChakraProvider theme={theme}>
       <Fonts />
       <Dialog>
@@ -42,6 +45,7 @@ function MyApp({ Component, pageProps, router }) {
         </MainLayout>
       </Dialog>
     </ChakraProvider>
+    </>
   );
 }
 
